@@ -1,5 +1,5 @@
-import dna
-import population
+from dna import DNA
+from population import Population
 
 def run():
   print("Running")

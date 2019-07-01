@@ -2,7 +2,7 @@ import random
 
 class DNA:
   @classmethod
-  def newChar(self):
+  def newChar(cls):
     rand_ord = random.randrange(63, 122)
     if rand_ord == 63:
       rand_ord = 32
@@ -21,3 +21,4 @@ class DNA:
   def getPhrase(self):
     return "".join(self.genes)
 
+  def
