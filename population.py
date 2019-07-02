@@ -5,6 +5,8 @@ class Population:
     self.mutation_rate = mutation_rate
     self.pop_size = pop_size
 
+    this.population = list(map(lambda x: Gene(len(self.target)), range(pop_size)))
+
   def is_finished(self):
     # should match the target against the best scoring DNA
     self.get_fittest().get_phrase() == self.target
