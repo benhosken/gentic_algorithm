@@ -3,7 +3,7 @@ import math
 
 class DNA:
   @staticmethod
-  def newChar():
+  def new_char():
     rand_ord = random.randrange(63, 122)
     if rand_ord == 63:
       rand_ord = 32
@@ -14,13 +14,13 @@ class DNA:
   def __init__(self, gene_count):
     print("DNA")
     # The genetic sequence
-    self.genes = list(map(lambda x: DNA.newChar(), range(gene_count)))
+    self.genes = list(map(lambda x: DNA.new_char(), range(gene_count)))
 
     # fitness score
     self.fitness = 0
 
   # Converts character array to a String
-  def getPhrase(self):
+  def get_phrase(self):
     return "".join(self.genes)
 
   # Fitness function (returns floating point % of "correct" characters)
@@ -36,14 +36,14 @@ class DNA:
     # A new child
     child = DNA(len(self.genes))
 
-    midpoint = random.randrange(len(self.genes)) # Pick a midpoint
+    split_point = random.randrange(len(self.genes)) # Pick a split point
 
-    child.genes = self.genes[:midpoint] + partner.genes[midpoint:]
+    child.genes = self.genes[:split_point] + partner.genes[split_point:]
     return child
 
   # Based on a mutation probability, picks a new random character
-  def mutate(self, mutationRate):
+  def mutate(self, mutation_rate):
     for idx in range(len(self.genes)):
-      if random.random() < mutationRate:
-        self.genes[idx] = DNA.newChar()
+      if random.random() < mutation_rate:
+        self.genes[idx] = DNA.new_char()
 
