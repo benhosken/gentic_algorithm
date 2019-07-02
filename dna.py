@@ -1,8 +1,9 @@
 import random
+import math
 
 class DNA:
-  @classmethod
-  def newChar(cls):
+  @staticmethod
+  def newChar():
     rand_ord = random.randrange(63, 122)
     if rand_ord == 63:
       rand_ord = 32
@@ -18,7 +19,31 @@ class DNA:
     # fitness score
     self.fitness = 0
 
+  # Converts character array to a String
   def getPhrase(self):
     return "".join(self.genes)
 
-  def
+  # Fitness function (returns floating point % of "correct" characters)
+  def calcFitness(self, target):
+    score = 0
+    for idx, gene in enumerate(self.genes):
+      if gene == target[idx]:
+        score =+ 1
+    return score / len(target)
+
+  # Crossover
+  def crossover(self, partner):
+    # A new child
+    child = DNA(len(self.genes))
+
+    midpoint = random.randrange(len(self.genes)) # Pick a midpoint
+
+    child.genes = self.genes[:midpoint] + partner.genes[midpoint:]
+    return child
+
+  # Based on a mutation probability, picks a new random character
+  def mutate(self, mutationRate):
+    for idx in range(len(self.genes)):
+      if random.random() < mutationRate:
+        self.genes[idx] = DNA.newChar()
+
