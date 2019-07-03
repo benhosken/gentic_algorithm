@@ -6,6 +6,7 @@ class Population:
     print("Constructing Population")
     self.target = target
     self.mutation_rate = mutation_rate
+    self.passthrough_rate = 0.4
     self.pop_size = pop_size
 
     self.population = list(map(lambda x: Chromosome(len(self.target)), range(pop_size)))
@@ -28,10 +29,14 @@ class Population:
 
     selection_probabilities = raw_fitnesses / np.sum(raw_fitnesses)
 
+    passthrough_count = int(self.pop_size * self.passthrough_rate)
+    top_chromes = np.argpartition(raw_fitnesses, -passthrough_count)[-passthrough_count:]
     new_population = list()
+    for i in top_chromes:
+      new_population.append(self.population[i])
 
     # generate the children by randomly selection two parents and crossing them over
-    for i in range(int(self.pop_size / 2)):
+    for i in range(int((self.pop_size - passthrough_count) / 2)):
       parent_a = np.random.choice(self.population, p=selection_probabilities)
       parent_b = np.random.choice(self.population, p=selection_probabilities)
       child_ab, child_ba = parent_a.crossover(parent_b)
