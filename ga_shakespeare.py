@@ -1,4 +1,3 @@
-from dna import DNA
 from population import Population
 
 def run():
@@ -7,7 +6,7 @@ def run():
   target = "To be of not to be."
 
   pop_size = 200
-  mutation_rate = 0.05
+  mutation_rate = 0.015
 
   population = Population(target, mutation_rate, pop_size)
   # Calculate initial fitness
