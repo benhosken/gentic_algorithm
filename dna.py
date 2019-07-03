@@ -12,7 +12,6 @@ class DNA:
     return chr(rand_ord)
 
   def __init__(self, gene_count):
-    print("DNA")
     # The genetic sequence
     self.genes = list(map(lambda x: DNA.new_char(), range(gene_count)))
 
@@ -24,12 +23,13 @@ class DNA:
     return "".join(self.genes)
 
   # Fitness function (returns floating point % of "correct" characters)
-  def calcFitness(self, target):
+  def calc_fitness(self, target):
     score = 0
     for idx, gene in enumerate(self.genes):
       if gene == target[idx]:
-        score =+ 1
-    return score / len(target)
+        score = score + 1
+    self.fitness = score / len(target)
+    return self.fitness
 
   # Crossover
   def crossover(self, partner):

@@ -4,37 +4,25 @@ from population import Population
 def run():
   print("Running")
 
-  target = "BENJAMIN"
-  d1 = DNA(len(target))
-  print(d1.get_phrase())
+  target = "To be of not to be."
 
-  d2 = DNA(len(target))
-  print(d2.get_phrase())
-
-  # print(d2.calcFitness(target))
-
-  d12 = d1.crossover(d2)
-  print(d12.get_phrase())
-
-  d12.mutate(0.4)
-  print(d12.get_phrase())
-
-  pop_size = 20
-  mutation_rate = 0.01
+  pop_size = 200
+  mutation_rate = 0.05
 
   population = Population(target, mutation_rate, pop_size)
+  # Calculate initial fitness
+  population.calc_fitness()
 
-  while !population.is_finished:
-    # Generate mating pool
-    population.perform_natural_selection()
-    # Create next generation
-    population.generate()
+  while not population.is_finished():
+    # Mate and generate the next generation
+    population.procreate()
+
     # Calculate fitness
     population.calc_fitness()
 
-    population.evaluate()
-
-    print(population.get_fittest())
+    fittest = population.get_fittest()
+    print("Generation:", population.generation)
+    print(fittest.get_phrase(), fittest.fitness)
 
 
 if __name__ == "__main__":
