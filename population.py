@@ -27,7 +27,11 @@ class Population:
 
     raw_fitnesses = np.array(list(map(lambda chromosome: chromosome.fitness, self.population)))
 
-    selection_probabilities = raw_fitnesses / np.sum(raw_fitnesses)
+    # basic normalisation
+    # selection_probabilities = raw_fitnesses / np.sum(raw_fitnesses)
+
+    # softmax normalisation instead
+    selection_probabilities = np.exp(raw_fitnesses) / np.sum(np.exp(raw_fitnesses), axis=0)
 
     passthrough_count = int(self.pop_size * self.passthrough_rate)
     top_chromes = np.argpartition(raw_fitnesses, -passthrough_count)[-passthrough_count:]
